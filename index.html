@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel · sw-desk</title>
+    <meta name="description" content="가족 여행 일정과 가이드 모음">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0f172a',
+                        accent: '#f97316',
+                        accent_soft: '#ffedd5',
+                        bg_light: '#f8fafc',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-bg_light text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <header class="bg-primary text-white py-10 px-6 border-b-4 border-accent">
+        <div class="max-w-5xl mx-auto">
+            <span class="bg-accent text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">travel.sw-desk.com</span>
+            <h1 class="text-4xl font-extrabold mt-3 tracking-tight">가족 여행 마스터 플랜</h1>
+            <p class="text-slate-400 text-sm mt-2">세대별 동선·우천 대안·유모차 운용까지 한 번에 정리한 실전형 여행 가이드.</p>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-10 w-full flex-1">
+        <h2 class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4"><i class="fa-solid fa-suitcase-rolling text-accent mr-1"></i> 여행 일정</h2>
+
+        <div class="grid gap-5 md:grid-cols-2">
+
+            <a href="/shanghai-2026-06/" class="group bg-white rounded-2xl p-6 shadow-sm border border-slate-200 hover:shadow-md hover:border-accent transition">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-3xl">🇨🇳</span>
+                    <span class="bg-accent_soft text-accent text-xs font-bold px-2 py-1 rounded-full">4박 5일</span>
+                </div>
+                <h3 class="text-xl font-bold text-slate-900 group-hover:text-accent transition">상하이 3대 대가족 여행</h3>
+                <p class="text-sm text-slate-500 mt-1">2026.06.17 (수) – 06.21 (일)</p>
+                <p class="text-sm text-slate-600 mt-3 leading-relaxed">성인 4명 + 아동 3명(10세·6세·2세). 디즈니랜드 세대별 분할 동선, 임시정부 청사, 푸동 마천루, 황푸강 크루즈. 6월 장마 우천 대안 전체 수록.</p>
+                <div class="mt-4 flex items-center text-accent text-sm font-semibold">
+                    상세 일정 보기 <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                </div>
+            </a>
+
+        </div>
+
+        <p class="text-center text-xs text-slate-400 mt-12">새로운 여행 일정은 계속 추가될 예정입니다.</p>
+    </main>
+
+    <footer class="border-t border-slate-200 py-6 px-6 text-center text-xs text-slate-500">
+        <p>© sw-desk · travel</p>
+    </footer>
+
+</body>
+</html>
