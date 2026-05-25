@@ -60,16 +60,16 @@
             <div>
                 <span class="bg-accent text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">6/17(수) - 6/21(일) 일정 완벽 분석</span>
                 <h1 class="text-3xl font-extrabold mt-2 tracking-tight">상하이 3대 대가족 여행 마스터</h1>
-                <p class="text-slate-400 text-sm mt-1">성인 4명(40대 전후) · 아동 3명(10세, 6세, 2세) | 난징동루 거점</p>
+                <p class="text-slate-400 text-sm mt-1">디즈니: 어른 2 + 10·6세 (1박) · 합류 후 7인 시내 투어</p>
             </div>
             <div class="flex flex-wrap gap-2">
                 <div class="bg-slate-800 px-4 py-2 rounded-lg text-xs border border-slate-700">
-                    <span class="text-slate-400 block">메인 호텔 (19~21일)</span>
-                    <span class="font-bold text-accent">상해麗笙精選海倫賓館 (라디슨 컬렉션 하일랜드)</span>
+                    <span class="text-slate-400 block">숙박</span>
+                    <span class="font-bold text-accent">17 디즈니 인근 · 18 라디슨 · 19~20 홍췐루 집</span>
                 </div>
                 <div class="bg-slate-800 px-4 py-2 rounded-lg text-xs border border-slate-700">
-                    <span class="text-slate-400 block">이동 이동전략</span>
-                    <span class="font-bold text-blue-400">DiDi 대형차량(6~7인승) 우선</span>
+                    <span class="text-slate-400 block">이동 전략</span>
+                    <span class="font-bold text-blue-400">DiDi 6~7인승 + 지하철</span>
                 </div>
             </div>
         </div>
@@ -131,7 +131,7 @@
             <div class="grid grid-cols-2 md:grid-cols-5 gap-2 mt-4 text-xs">
                 <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full inline-block" style="background:#dc2626"></span><span class="text-slate-700">6/17 입국</span></div>
                 <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full inline-block" style="background:#ec4899"></span><span class="text-slate-700">6/18 디즈니랜드</span></div>
-                <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full inline-block" style="background:#2563eb"></span><span class="text-slate-700">6/19 신천지/임정</span></div>
+                <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full inline-block" style="background:#2563eb"></span><span class="text-slate-700">6/19 가족 합류/시내</span></div>
                 <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full inline-block" style="background:#9333ea"></span><span class="text-slate-700">6/20 푸동/와이탄</span></div>
                 <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full inline-block" style="background:#16a34a"></span><span class="text-slate-700">6/21 쇼핑/귀국</span></div>
             </div>
@@ -195,54 +195,24 @@
         <!-- Weather Forecast Section -->
         <section class="mt-12">
             <div class="flex items-center gap-3 mb-2">
-                <h2 class="text-2xl font-black text-slate-900"><i class="fa-solid fa-cloud-sun-rain text-accent mr-2"></i>일자별 시간대 기상 예보</h2>
+                <h2 class="text-2xl font-black text-slate-900"><i class="fa-solid fa-cloud-sun-rain text-accent mr-2"></i>선택한 일자의 기상</h2>
             </div>
-            <p class="text-slate-500 text-sm mb-6">상하이 시내 좌표 기준. 시간대별 기온·강수 확률·풍속 · <a href="https://open-meteo.com/" target="_blank" rel="noopener" class="text-blue-600 hover:underline">Open-Meteo</a> 데이터.</p>
+            <p class="text-slate-500 text-sm mb-6">상단 일자 버튼과 연동 · 3시간 간격 8개 · <a href="https://open-meteo.com/" target="_blank" rel="noopener" class="text-blue-600 hover:underline">Open-Meteo</a></p>
             <div id="weather-container"></div>
         </section>
 
-        <!-- Disney Detailed Park Map Section -->
+        <!-- Disney detail link -->
         <section class="mt-12">
-            <div class="flex items-center gap-3 mb-2">
-                <h2 class="text-2xl font-black text-slate-900"><i class="fa-solid fa-castle text-accent mr-2"></i>상하이 디즈니랜드 파크 상세 동선</h2>
-            </div>
-            <p class="text-slate-500 text-sm mb-6">10세 스릴팀과 6세·2세 가족케어팀 오전 분할 동선, 그리고 오후 합체 + 야간 불꽃까지의 전체 루트를 지도 위에 시각화했습니다.</p>
-
-            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
-                <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
-                    <div class="flex gap-1 bg-slate-100 p-1 rounded-xl flex-wrap">
-                        <button id="disney-route-family" onclick="setDisneyRoute('family')" class="px-3 py-2 rounded-lg text-xs font-bold transition bg-pink-500 text-white">👶 가족케어팀 (오전)</button>
-                        <button id="disney-route-thrill" onclick="setDisneyRoute('thrill')" class="px-3 py-2 rounded-lg text-xs font-bold transition bg-transparent text-slate-600 hover:bg-white">🎢 스릴팀 (오전)</button>
-                        <button id="disney-route-combined" onclick="setDisneyRoute('combined')" class="px-3 py-2 rounded-lg text-xs font-bold transition bg-transparent text-slate-600 hover:bg-white">🌃 합체 (오후~야간)</button>
-                        <button id="disney-route-all" onclick="setDisneyRoute('all')" class="px-3 py-2 rounded-lg text-xs font-bold transition bg-transparent text-slate-600 hover:bg-white">📍 전체</button>
+            <a href="disney/" class="block bg-gradient-to-br from-pink-500 to-rose-600 text-white rounded-2xl p-6 shadow-md hover:shadow-lg transition group">
+                <div class="flex items-center justify-between gap-4 flex-wrap">
+                    <div>
+                        <span class="bg-white/20 text-white text-xs font-bold px-2 py-1 rounded-full">6/18 · 디즈니 데이</span>
+                        <h2 class="text-2xl font-extrabold mt-2 flex items-center gap-2">🏰 디즈니랜드 파크 상세 동선</h2>
+                        <p class="text-pink-100 text-sm mt-1">10세·6세 분할 동선 + 식당·화장실 포함 파크 내부 상세 지도</p>
                     </div>
-                    <div class="flex gap-2">
-                        <button id="disney-toggle-food" onclick="toggleDisneyAmenity('food')" class="flex items-center gap-1 px-3 py-2 rounded-lg text-xs font-bold transition bg-amber-500 text-white border border-amber-500">
-                            <span>🍽️</span><span>식당</span>
-                        </button>
-                        <button id="disney-toggle-wc" onclick="toggleDisneyAmenity('wc')" class="flex items-center gap-1 px-3 py-2 rounded-lg text-xs font-bold transition bg-slate-600 text-white border border-slate-600">
-                            <span>🚻</span><span>화장실</span>
-                        </button>
-                    </div>
+                    <div class="text-3xl group-hover:translate-x-1 transition">→</div>
                 </div>
-
-                <div id="disney-map" class="rounded-xl border border-slate-200 z-0" style="height: 520px;"></div>
-
-                <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
-                    <div class="bg-pink-50 rounded-lg p-3">
-                        <span class="font-bold text-pink-700 block mb-1"><i class="fa-solid fa-baby mr-1"></i>가족케어팀 (성인2 + 6세 + 2세)</span>
-                        <p class="text-slate-700">대기 짧고 잔잔한 어트랙션 중심. 판타지랜드 100% 실내, 우천에도 영향 적음.</p>
-                    </div>
-                    <div class="bg-purple-50 rounded-lg p-3">
-                        <span class="font-bold text-purple-700 block mb-1"><i class="fa-solid fa-bolt mr-1"></i>스릴팀 (성인2 + 10세)</span>
-                        <p class="text-slate-700">최신 스릴 어트랙션 선점 후 어드벤처 아일 횡단. 오픈런 동선.</p>
-                    </div>
-                    <div class="bg-indigo-50 rounded-lg p-3">
-                        <span class="font-bold text-indigo-700 block mb-1"><i class="fa-solid fa-moon mr-1"></i>오후~야간 합체</span>
-                        <p class="text-slate-700">점심 후 가족 전원 합체. 캐리비안 → 겨울왕국 → 퍼레이드 → 토이스토리 → 야간 불꽃.</p>
-                    </div>
-                </div>
-            </div>
+            </a>
         </section>
 
     </main>
@@ -267,48 +237,52 @@
                 color: '#dc2626',
                 label: '6/17 (수) 입국',
                 points: [
-                    { name: '푸동국제공항 (PVG)', lat: 31.1443, lng: 121.8083, note: '23:00 전후 도착 · 대형 DiDi 밴 호출' },
-                    { name: '라디슨 컬렉션 하일랜드 (난징동루)', lat: 31.2381, lng: 121.4814, note: '약 50분 차량 이동 · 체크인 후 즉시 숙면' }
+                    { name: '푸동국제공항 (PVG)', lat: 31.1443, lng: 121.8083, note: '23:00 도착 · DiDi 밴 호출' },
+                    { name: '디즈니 인근 호텔', lat: 31.1375, lng: 121.6688, note: '약 30분 차량 이동 · 체크인 후 즉시 숙면' }
                 ]
             },
             day1: {
                 color: '#ec4899',
                 label: '6/18 (목) 디즈니랜드',
                 points: [
-                    { name: '상하이 디즈니랜드 (메인 게이트)', lat: 31.1518, lng: 121.6589, note: '07:00 출발 · 오픈런 입장' },
-                    { name: '바보사 바베큐 (트레저 코브)', lat: 31.1504, lng: 121.6620, note: '12:00 가족 합체 점심' },
-                    { name: '디즈니타운 (저녁식사)', lat: 31.1438, lng: 121.6635, note: '게이트 밖 식사 / 재입장' }
+                    { name: '디즈니 인근 호텔 (출발)', lat: 31.1375, lng: 121.6688, note: '07:00 셔틀로 디즈니 게이트 이동' },
+                    { name: '상하이 디즈니랜드', lat: 31.1518, lng: 121.6589, note: '4명(어른2+10세·6세) 오픈런' },
+                    { name: '바보사 바베큐 (점심)', lat: 31.1504, lng: 121.6620, note: '12:00 점심' },
+                    { name: '디즈니타운 (저녁)', lat: 31.1438, lng: 121.6635, note: '불꽃 쇼 후 저녁식사 / 짐 픽업' },
+                    { name: '라디슨 컬렉션 하일랜드', lat: 31.2381, lng: 121.4814, note: '21:30~22:00 도심 이동 · 체크인' }
                 ]
             },
             day2: {
                 color: '#2563eb',
-                label: '6/19 (금) 신천지/임시정부',
+                label: '6/19 (금) 가족 합류/시내',
                 points: [
-                    { name: '라디슨 컬렉션 하일랜드 (메인 호텔)', lat: 31.2381, lng: 121.4814, note: '11시경 짐 위탁 후 출발' },
-                    { name: '대한민국 임시정부 청사', lat: 31.2238, lng: 121.4744, note: '11:30 역사 투어 (유모차 불가)' },
-                    { name: '신천지', lat: 31.2218, lng: 121.4753, note: '13:00 점심 / 노천 거리 산책' },
-                    { name: '난징동루 보행자거리', lat: 31.2364, lng: 121.4818, note: '18:30 미니 기차 / 야간 산책' },
-                    { name: '신세계 다마루 백화점', lat: 31.2358, lng: 121.4794, note: '나선형 에스컬레이터 / 우천 대안' }
+                    { name: '라디슨 (체크아웃)', lat: 31.2381, lng: 121.4814, note: '오전 체크아웃 · 나머지 가족 합류' },
+                    { name: '대한민국 임시정부 청사', lat: 31.2238, lng: 121.4744, note: '역사 투어' },
+                    { name: '신천지', lat: 31.2218, lng: 121.4753, note: '점심 / 노천 거리 산책' },
+                    { name: '난징동루 보행자거리', lat: 31.2364, lng: 121.4818, note: '미니 기차 / 야간 산책' },
+                    { name: '홍췐루 집 (숙박)', lat: 31.1989, lng: 121.3777, note: '저녁 이동 · 가족 집에서 숙박' }
                 ]
             },
             day3: {
                 color: '#9333ea',
                 label: '6/20 (토) 푸동/와이탄',
                 points: [
-                    { name: '동방명주', lat: 31.2397, lng: 121.4995, note: '10:00 마천루 전망대 (우천시 스킵)' },
-                    { name: '상하이 디즈니 플래그십', lat: 31.2393, lng: 121.4972, note: '시계탑 광장 인형 쇼' },
-                    { name: '정다광장 (Super Brand Mall)', lat: 31.2384, lng: 121.4985, note: '우천 대안 / 점심' },
-                    { name: '상하이 자연사 박물관', lat: 31.2407, lng: 121.4576, note: '14:30 실내 투어 (배리어프리 완비)' },
-                    { name: '와이탄 황푸강 크루즈', lat: 31.2401, lng: 121.4884, note: '18:30 야경 50분 유람선' }
+                    { name: '홍췐루 집 (출발)', lat: 31.1989, lng: 121.3777, note: '오전 출발' },
+                    { name: '동방명주 / 루자쭈이', lat: 31.2397, lng: 121.4995, note: '마천루 전망 (우천시 스킵)' },
+                    { name: '정다광장 (Super Brand Mall)', lat: 31.2384, lng: 121.4985, note: '점심 / 우천 대안' },
+                    { name: '상하이 자연사 박물관', lat: 31.2407, lng: 121.4576, note: '14:30 실내 투어 (배리어프리)' },
+                    { name: '와이탄 황푸강 크루즈', lat: 31.2401, lng: 121.4884, note: '18:30 야경 50분 유람선' },
+                    { name: '홍췐루 집 (숙박)', lat: 31.1989, lng: 121.3777, note: '귀가 / 숙박' }
                 ]
             },
             day4: {
                 color: '#16a34a',
                 label: '6/21 (일) 쇼핑/귀국',
                 points: [
-                    { name: '난징동루 쇼핑 (제일식품상점)', lat: 31.2378, lng: 121.4815, note: '10:00 특산품 / 화이트래빗 사재기' },
-                    { name: '스타벅스 리저브 로스터리', lat: 31.2253, lng: 121.4515, note: '12:00 마지막 오찬 / 베이커리' },
-                    { name: '푸동국제공항 (PVG)', lat: 31.1443, lng: 121.8083, note: '14:30 출발 (장마철 +40분 마진)' }
+                    { name: '홍췐루 집 (출발)', lat: 31.1989, lng: 121.3777, note: '오전 출발' },
+                    { name: '난징동루 쇼핑', lat: 31.2378, lng: 121.4815, note: '특산품 / 화이트래빗 사재기' },
+                    { name: '스타벅스 리저브 로스터리', lat: 31.2253, lng: 121.4515, note: '마지막 오찬 / 베이커리' },
+                    { name: '푸동국제공항 (PVG)', lat: 31.1443, lng: 121.8083, note: '귀국 (장마철 +40분 마진)' }
                 ]
             }
         };
@@ -381,653 +355,16 @@
             updateMap();
         }
 
-        // === Disney Detailed Park Map ===
-        const disneyRoutes = {
-            family: {
-                color: '#ec4899',
-                label: '오전 가족케어팀',
-                points: [
-                    { name: '메인 게이트 (입장)', time: '08:30', lat: 31.1437, lng: 121.6585, note: '입장 후 캐슬 우측으로 우회' },
-                    { name: '피터팬의 하늘 여행', time: '09:10', lat: 31.1515, lng: 121.6573, note: '판타지랜드 첫 코스 (실내, 우천 안전)' },
-                    { name: '곰돌이 푸의 모험', time: '09:45', lat: 31.1518, lng: 121.6582, note: '연속 탑승, 실내 100%' },
-                    { name: '회전목마 (가든 오브 이매진)', time: '10:30', lat: 31.1483, lng: 121.6579, note: '6세·2세 모두 탑승 가능' },
-                    { name: '캐릭터 그리팅 (캐슬 안쪽)', time: '11:15', lat: 31.1497, lng: 121.6577, note: '실내 줄서기, 그늘 보장' }
-                ]
-            },
-            thrill: {
-                color: '#9333ea',
-                label: '오전 스릴팀',
-                points: [
-                    { name: '메인 게이트 (입장)', time: '08:30', lat: 31.1437, lng: 121.6585, note: '입장 즉시 우측 투모로우랜드로 질주' },
-                    { name: 'TRON 라이트사이클 파워 런', time: '08:55', lat: 31.1505, lng: 121.6612, note: '오픈런 30분 대기 / 우천시 트랙 일시 중단 가능' },
-                    { name: '버즈 라이트이어 (실내 백업)', time: '10:00', lat: 31.1495, lng: 121.6618, note: '비 올 때 트론 대신' },
-                    { name: '소어링 오버 더 호라이즌', time: '10:45', lat: 31.1527, lng: 121.6555, note: '어드벤처 아일 횡단 후 탑승' },
-                    { name: '로어링 래피드 (어드벤처)', time: '11:30', lat: 31.1535, lng: 121.6552, note: '6월 더운 날엔 쿨링 효과' }
-                ]
-            },
-            combined: {
-                color: '#4f46e5',
-                label: '오후~야간 합체',
-                points: [
-                    { name: '바보사 바베큐 (점심 합체)', time: '12:00', lat: 31.1490, lng: 121.6548, note: '대형 실내 식당 / 7인 테이블 확보' },
-                    { name: '캐리비안의 해적', time: '13:30', lat: 31.1487, lng: 121.6543, note: '2세 영아도 무릎 위 안전 탑승' },
-                    { name: '겨울왕국 싱어롱 콘서트', time: '14:45', lat: 31.1520, lng: 121.6585, note: '에어컨 실내 30분 휴식 + 공연' },
-                    { name: 'Storybook Express 퍼레이드', time: '15:45', lat: 31.1483, lng: 121.6580, note: '캐슬 앞 화단 그늘 명당' },
-                    { name: '슬링키 도그 스핀 (토이스토리)', time: '16:30', lat: 31.1457, lng: 121.6622, note: '아이들 눈높이 어트랙션' },
-                    { name: '디즈니타운 저녁식사', time: '18:00', lat: 31.1438, lng: 121.6635, note: '게이트 밖 / 재입장 무제한' },
-                    { name: '크리스탈 그로토 보트', time: '19:30', lat: 31.1493, lng: 121.6579, note: '캐슬 지하 야간 보트 힐링' },
-                    { name: 'ILLUMINATE! 불꽃 쇼', time: '20:00', lat: 31.1497, lng: 121.6577, note: '캐슬 앞 빛+미디어 매핑 30분' }
-                ]
-            }
-        };
-
-        const disneyAmenities = {
-            food: [
-                { name: 'Mickey & Pals Market Cafe', land: '미키 애비뉴', lat: 31.1452, lng: 121.6580, type: '캐주얼 / 미국 스타일', note: '입장 직후 아침/간식' },
-                { name: 'Remy\'s Patisserie', land: '미키 애비뉴', lat: 31.1455, lng: 121.6585, type: '베이커리 / 디저트', note: '라따뚜이 테마, 빠른 픽업' },
-                { name: 'Pinocchio Village Kitchen', land: '판타지랜드', lat: 31.1517, lng: 121.6573, type: '피자 / 파스타', note: '아이들 먹기 좋은 이탈리아식' },
-                { name: 'Royal Banquet Hall', land: '캐슬 내부', lat: 31.1500, lng: 121.6577, type: '캐릭터 다이닝 (예약 필수)', note: '디즈니 공식 앱 사전 예약' },
-                { name: 'Barbossa\'s Bounty', land: '트레저 코브', lat: 31.1490, lng: 121.6548, type: '실내 대형 시푸드', note: '7인 가족 점심 메인 포인트' },
-                { name: 'Tribal Table', land: '어드벤처 아일', lat: 31.1525, lng: 121.6562, type: '동남아시아 누들', note: '소어링 탑승 후 가까운 식당' },
-                { name: 'Stargazer Grill', land: '투모로우랜드', lat: 31.1500, lng: 121.6612, type: '버거 / 그릴', note: '스릴 어트랙션 직후 빠른 식사' },
-                { name: 'Toy Box Cafe', land: '토이스토리 랜드', lat: 31.1457, lng: 121.6620, type: '핫도그 / 디저트', note: '오후 슬링키 도그 전후 간식' }
-            ],
-            wc: [
-                { name: '미키 애비뉴 화장실', land: '입장 직후', lat: 31.1448, lng: 121.6582, note: '입장 직후 좌측, 유아 변기 있음' },
-                { name: '판타지랜드 화장실', land: '피노키오 인근', lat: 31.1518, lng: 121.6578, note: '판타지랜드 중앙, 수유실 인접' },
-                { name: '가든 오브 이매진 화장실', land: '캐슬 옆', lat: 31.1485, lng: 121.6582, note: '회전목마 옆, 퍼레이드 대기 중 이용' },
-                { name: '어드벤처 아일 화장실', land: '소어링 인근', lat: 31.1525, lng: 121.6557, note: '소어링 입구 옆' },
-                { name: '트레저 코브 화장실', land: '캐리비안 인근', lat: 31.1488, lng: 121.6552, note: '바보사 점심 전후 동선' },
-                { name: '투모로우랜드 화장실', land: '버즈 인근', lat: 31.1502, lng: 121.6618, note: '트론 탑승 전후' },
-                { name: '토이스토리 랜드 화장실', land: '슬링키 도그 인근', lat: 31.1460, lng: 121.6620, note: '토이스토리 랜드 입구' }
-            ]
-        };
-
-        const amenityVisible = { food: true, wc: true };
-        let amenityLayers = { food: [], wc: [] };
-
-        let disneyMap = null;
-        let disneyLayers = [];
-        let disneyRoute = 'family';
-
-        function initDisneyMap() {
-            disneyMap = L.map('disney-map', { scrollWheelZoom: false }).setView([31.1497, 121.6585], 16);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-                maxZoom: 19
-            }).addTo(disneyMap);
-            disneyMap.on('click', () => disneyMap.scrollWheelZoom.enable());
-
-            // Permanent landmark labels
-            const castle = L.marker([31.1497, 121.6577], {
-                icon: L.divIcon({
-                    className: '',
-                    html: '<div style="background:#fef3c7;color:#92400e;padding:3px 8px;border-radius:6px;border:1px solid #fcd34d;font-size:11px;font-weight:700;white-space:nowrap;box-shadow:0 1px 3px rgba(0,0,0,.2);">🏰 인챈티드 스토리북 캐슬</div>',
-                    iconSize: [0, 0]
-                }),
-                interactive: false
-            }).addTo(disneyMap);
-
-            renderAmenityLayer('food');
-            renderAmenityLayer('wc');
-            updateDisneyMap();
-        }
-
-        function renderAmenityLayer(kind) {
-            amenityLayers[kind].forEach(l => disneyMap.removeLayer(l));
-            amenityLayers[kind] = [];
-            if (!amenityVisible[kind]) return;
-
-            const items = disneyAmenities[kind];
-            const isFood = kind === 'food';
-            const color = isFood ? '#f59e0b' : '#475569';
-            const emoji = isFood ? '🍽' : '🚻';
-
-            items.forEach(p => {
-                const icon = L.divIcon({
-                    className: 'custom-amenity',
-                    html: `<div style="background:${color};color:white;width:22px;height:22px;border-radius:50%;border:2px solid white;display:flex;align-items:center;justify-content:center;font-size:11px;box-shadow:0 1px 4px rgba(0,0,0,.3);opacity:0.92;">${emoji}</div>`,
-                    iconSize: [22, 22],
-                    iconAnchor: [11, 11]
-                });
-                const m = L.marker([p.lat, p.lng], { icon, zIndexOffset: -100 }).addTo(disneyMap);
-                const detail = isFood
-                    ? `<div style="font-size:11px;color:#64748b;margin-bottom:2px;">${p.land} · ${p.type}</div><div style="font-size:12px;color:#475569;line-height:1.4;">${p.note}</div>`
-                    : `<div style="font-size:11px;color:#64748b;margin-bottom:2px;">${p.land}</div><div style="font-size:12px;color:#475569;line-height:1.4;">${p.note}</div>`;
-                m.bindPopup(`<div style="font-family:system-ui,sans-serif;min-width:180px;"><div style="font-size:10px;color:${color};font-weight:700;text-transform:uppercase;letter-spacing:.05em;">${isFood ? '🍽️ 식당' : '🚻 화장실'}</div><div style="font-weight:700;margin:4px 0;color:#0f172a;font-size:14px;">${p.name}</div>${detail}</div>`);
-                amenityLayers[kind].push(m);
-            });
-        }
-
-        function toggleDisneyAmenity(kind) {
-            amenityVisible[kind] = !amenityVisible[kind];
-            const btn = document.getElementById(kind === 'food' ? 'disney-toggle-food' : 'disney-toggle-wc');
-            const on = amenityVisible[kind];
-            const baseCls = 'flex items-center gap-1 px-3 py-2 rounded-lg text-xs font-bold transition border';
-            if (kind === 'food') {
-                btn.className = `${baseCls} ${on ? 'bg-amber-500 text-white border-amber-500' : 'bg-white text-slate-500 border-slate-200'}`;
-            } else {
-                btn.className = `${baseCls} ${on ? 'bg-slate-600 text-white border-slate-600' : 'bg-white text-slate-500 border-slate-200'}`;
-            }
-            renderAmenityLayer(kind);
-        }
-
-        function clearDisneyLayers() {
-            disneyLayers.forEach(l => disneyMap.removeLayer(l));
-            disneyLayers = [];
-        }
-
-        function renderDisneyRoute(routeKey) {
-            const r = disneyRoutes[routeKey];
-            if (!r) return [];
-            const latlngs = [];
-            r.points.forEach((p, i) => {
-                const icon = L.divIcon({
-                    className: 'custom-pin',
-                    html: `<div style="background:${r.color};color:white;width:32px;height:32px;border-radius:50%;border:3px solid white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;box-shadow:0 2px 8px rgba(0,0,0,.4);">${i+1}</div>`,
-                    iconSize: [32, 32],
-                    iconAnchor: [16, 16]
-                });
-                const m = L.marker([p.lat, p.lng], { icon }).addTo(disneyMap);
-                m.bindPopup(`<div style="font-family:system-ui,sans-serif;min-width:200px;"><div style="display:flex;justify-content:space-between;align-items:center;font-size:10px;color:${r.color};font-weight:700;text-transform:uppercase;letter-spacing:.05em;"><span>${r.label}</span><span style="background:${r.color};color:white;padding:1px 6px;border-radius:8px;">${p.time}</span></div><div style="font-weight:700;margin:6px 0 4px;color:#0f172a;font-size:14px;">${i+1}. ${p.name}</div><div style="font-size:12px;color:#475569;line-height:1.4;">${p.note}</div></div>`);
-                disneyLayers.push(m);
-                latlngs.push([p.lat, p.lng]);
-            });
-            if (latlngs.length > 1) {
-                const line = L.polyline(latlngs, { color: r.color, weight: 4, opacity: 0.65 }).addTo(disneyMap);
-                disneyLayers.push(line);
-
-                // Arrows on segments
-                for (let i = 0; i < latlngs.length - 1; i++) {
-                    const mid = [(latlngs[i][0] + latlngs[i+1][0]) / 2, (latlngs[i][1] + latlngs[i+1][1]) / 2];
-                    const arrow = L.marker(mid, {
-                        icon: L.divIcon({
-                            className: '',
-                            html: `<div style="color:${r.color};font-size:18px;font-weight:bold;text-shadow:0 0 3px white,0 0 3px white;">▶</div>`,
-                            iconSize: [18, 18],
-                            iconAnchor: [9, 9]
-                        }),
-                        interactive: false
-                    }).addTo(disneyMap);
-                    disneyLayers.push(arrow);
-                }
-            }
-            return latlngs;
-        }
-
-        function updateDisneyMap() {
-            if (!disneyMap) return;
-            clearDisneyLayers();
-            let allLL = [];
-            if (disneyRoute === 'all') {
-                ['family', 'thrill', 'combined'].forEach(k => {
-                    const ll = renderDisneyRoute(k);
-                    allLL.push(...ll);
-                });
-            } else {
-                allLL = renderDisneyRoute(disneyRoute);
-            }
-            if (allLL.length > 0) {
-                disneyMap.fitBounds(allLL, { padding: [40, 40], maxZoom: 16 });
-            }
-        }
-
-        function setDisneyRoute(routeKey) {
-            disneyRoute = routeKey;
-            const keys = ['family', 'thrill', 'combined', 'all'];
-            const styles = {
-                family: 'bg-pink-500 text-white',
-                thrill: 'bg-purple-600 text-white',
-                combined: 'bg-indigo-600 text-white',
-                all: 'bg-primary text-white'
-            };
-            const baseInactive = 'bg-transparent text-slate-600 hover:bg-white';
-            keys.forEach(k => {
-                const btn = document.getElementById(`disney-route-${k}`);
-                if (!btn) return;
-                btn.className = `px-3 py-2 rounded-lg text-xs font-bold transition ${k === routeKey ? styles[k] : baseInactive}`;
-            });
-            updateDisneyMap();
-        }
-
-        const timelineData = {
-            day0: {
-                title: "6/17 (수): 상하이 밤 입국 및 첫 숙소 체크인",
-                events: [
-                    {
-                        time: "20:00 - 22:30",
-                        title: "푸동(PVG) 또는 홍차오(SHA) 공항 도착 및 입국 수속",
-                        distance: "공항 -> 숙소 (약 30~45km)",
-                        stroller: "입국 심사 및 수하물 수령 시 2세 아동을 유모차에 안전하게 태워 대기 시간을 이겨내세요.",
-                        sunny: {
-                            detail: "밤 늦은 입국이므로 대가족의 피로도를 최소화하는 것이 관건입니다. 중국어 능통자분이 수하물 수령 중 미리 모바일로 7인 탑승용 DiDi 대형 비즈니스차(商务车)를 호출합니다.",
-                            tips: "늦은 밤 시간대의 택시 승차 대기줄은 매우 길 수 있으므로 DiDi 전용 탑승 공간으로 바로 이동하는 것을 권장합니다."
-                        },
-                        rainy: {
-                            detail: "6월 장마철 야간 비가 내릴 경우 차량 승차가 다소 지연될 수 있습니다. 대형차 매칭 실패에 대비해 일반형 DiDi 차량 2대를 신속히 분산 호출합니다.",
-                            tips: "중국어 가능자 1명과 능통자 1명이 각각 한 대씩 나누어 탑승하도록 미리 조를 짜두세요."
-                        }
-                    },
-                    {
-                        time: "23:00~",
-                        title: "첫 숙소 체크인 및 휴식",
-                        distance: "공항 차량 탑승 약 45분",
-                        stroller: "유모차는 방 안에 접어 보관하며 내일 디즈니랜드 일정에 대비해 배터리 및 바퀴 상태를 미리 체크하세요.",
-                        sunny: {
-                            detail: "내일 아침 일찍 진행되는 디즈니랜드 오픈런을 위해 야식을 삼가고 즉시 숙면을 취합니다.",
-                            tips: "가족 중 10세, 6세 아이들의 기상 컨디션이 내일 하루 전체의 피로도를 좌우합니다."
-                        },
-                        rainy: {
-                            detail: "빗소리로 인해 수면이 방해받지 않도록 암막 커튼과 에어컨 제습 모드(약 24~25도)를 적절히 조절하세요.",
-                            tips: "만약의 비를 대비해 가방에서 내일 입을 옷과 비옷을 눈에 띄는 곳에 꺼내 둡니다."
-                        }
-                    }
-                ]
-            },
-            day1: {
-                title: "6/18 (목): 상하이 디즈니랜드 환상의 종일 투어 (스플릿 맞춤 동선)",
-                events: [
-                    {
-                        time: "07:00 - 08:30",
-                        title: "[이동 & 얼리런] 호텔 출발 및 조기 입장 대기",
-                        distance: "숙소 -> 디즈니랜드 (차량 약 40분)",
-                        stroller: "개인 유모차를 지참하거나 입장 즉시 좌측 유모차 대여소(Stroller Rental)에서 1일권을 대여(약 90위안)하세요. 하루 최소 15,000보 이상 걸으므로 6세 아동용 유모차 대여도 매우 현명합니다.",
-                        sunny: {
-                            detail: "아침 7시 호텔 앞에서 DiDi 대형 비즈니스 차량(商务车)에 전원 탑승하여 7시 45분경 디즈니랜드 셔틀/택시 승하차장(Disney Parking Lot)에 도착합니다. 주말보다 인파가 적은 목요일이므로 보안 검색대 통과가 매끄럽습니다.",
-                            tips: "대기 줄에서 2세, 6세 아동에게 간단한 모닝 빵이나 우유를 먹이고, 대기하는 동안 중국어 능통자분이 디즈니 공식 앱에 가족 7명의 입장권을 일괄 등록해 동반 그룹으로 묶어두세요."
-                        },
-                        rainy: {
-                            detail: "우천 시 야외 보행 대기 구간이 젖으므로, 아이들에게 방수 슈즈 커버와 전신 우비를 완전히 장착시켜 입장 대기시킵니다. 우비는 파크 안에서 비싸게 팔므로 한국에서 사전 구비를 추천합니다.",
-                            tips: "빗방울이 굵으면 아예 8시 45분 이후에 여유 있게 게이트를 통과하여 유아들이 긴 오픈런 대기선에서 체력을 소진하지 않도록 조율하세요."
-                        }
-                    },
-                    {
-                        time: "09:00 - 12:00",
-                        title: "[오전 스플릿] 세대별 맞춤형 이원 분할 동선 가동",
-                        distance: "파크 내 오전 보행 약 2.5km",
-                        stroller: "유모차를 주행할 때는 트론 등 스릴 구역에는 전용 주차라인(Stroller Parking)에 세우고, 판타지랜드는 유모차 동선 경사로가 완만하므로 그대로 밀고 올라갑니다. 귀중품은 절대 유모차 바구니에 두고 내리지 마세요.",
-                        sunny: {
-                            detail: "입장 직후 가족을 두 팀으로 분할합니다. [스릴팀: 10세 아동 + 성인 2]은 곧장 투모로우랜드로 가 '트론(TRON) 라이트사이클 파워 런' 대기(대기 약 30분 내외) 후 '소어링 오버 더 호라이즌'으로 도보 질주. [가족케어팀: 6세, 2세 아동 + 성인 2]은 판타지랜드로 진입하여 동화 같은 분위기 속에 '피터팬의 하늘 여행(Peter Pan's Flight)', '푸의 모험(Winnie the Pooh)', '회전 목마'를 연달아 탑승합니다.",
-                            tips: "만약 대기 시간을 단축하고 싶다면, 입장하자마자 앱에서 '디즈니 프리미어 액세스(DPA)' 유료 패스를 소어링이나 트론 위주로 구매하는 것을 적극 고려하세요."
-                        },
-                        rainy: {
-                            detail: "[스릴팀]의 야외 트론 롤러코스터는 악천후 시 일시 중단될 수 있으므로 실내형인 '트론(대기실 및 트랙 일부 실내)'과 '버즈 라이트이어 플래닛 레스큐'로 빠른 턴을 합니다. [가족케어팀]은 100% 실내 대기 라인이 있는 판타지랜드의 캐슬 내부 구경 및 푸의 모험 위주로 실내 정착합니다.",
-                            tips: "비가 올 때는 내외부 온도차로 인해 에어컨이 추울 수 있으니 유아용 얇은 바람막이 자켓을 필수 장착해 주세요."
-                        }
-                    },
-                    {
-                        time: "12:00 - 15:30",
-                        title: "[점심 & 전세대 통합] 식사 후 보물섬 어트랙션 및 겨울왕국 쇼",
-                        distance: "트레저 코브 -> 어드벤처 아일 통로 약 1.5km",
-                        stroller: "트레저 코브와 어드벤처 아일 일대는 노면이 매우 평탄합니다. 공연 극장 입장 시 입구 바로 앞에 유모차를 일괄 주차해야 극장 안으로 입장하실 수 있습니다.",
-                        sunny: {
-                            detail: "디즈니타운이나 파크 내부의 '피노키오의 빌리지 키친(피자, 면류)' 또는 '바보사 바베큐(Barbossa's Bounty)'에서 온 가족이 합체하여 점심을 푸짐하게 먹습니다. 식사 후 온 가족이 극찬하는 1순위 어트랙션인 '캐리비안의 해적: 침몰한 보물의 전투(Pirates of the Caribbean)'를 함께 탑승합니다. (어둡지만 무섭지 않아 2세 영아도 무릎 위 탑승 가능!)",
-                            tips: "점심 직후에는 날이 매우 뜨거워지므로, 시원한 실내 극장인 '겨울왕국: 싱어롱 콘서트(Frozen Sing-Along Celebration)'를 미리 앱으로 시간 확인하여 예약 관람합니다. 에어컨 바람을 맞으며 30분간 다 함께 휴식을 취할 수 있습니다."
-                        },
-                        rainy: {
-                            detail: "식사는 가급적 넓고 한적한 대형 실내 레스토랑인 '바보사 바베큐'나 '트레저 코브' 안쪽의 실내 대피 가능 구역을 잡으세요. 비가 와도 '캐리비안의 해적' 및 '겨울왕국 싱어롱 쇼'는 100% 실내 어트랙션이므로 차질 없이 동일하게 즐길 수 있어 대안 동선으로 가장 강력합니다.",
-                            tips: "비바람이 칠 때는 따뜻한 국물이 있는 완탕면이나 면 요리 위주로 주문하여 몸을 데우는 것이 피로 해소에 도움이 됩니다."
-                        }
-                    },
-                    {
-                        time: "15:45 - 17:30",
-                        title: "[퍼레이드 & 가벼운 어트랙션] 스토리북 퍼레이드 감상 및 토이스토리 랜드",
-                        distance: "미키 애비뉴 주변 약 1km",
-                        stroller: "퍼레이드 관람 시 유모차는 관람 데크 가장 뒤쪽에 세우거나 바퀴 브레이크를 걸고 맨 앞줄에 앉혀서 감상시킵니다.",
-                        sunny: {
-                            detail: "오후 3시 45분 메인 퍼레이드인 'Mickey’s Storybook Express'를 감상합니다. 디즈니 캐슬 앞 가든 오브 이매진 주변이 최고 명당입니다. 퍼레이드 후 토이스토리 랜드(Toy Story Land)로 이동해 귀여운 알린 카트와 '슬링키 도그 스핀' 등 가벼운 회전형 놀이기구를 아이들과 즐깁니다.",
-                            tips: "간식 타임으로 파크 곳곳에서 파는 도널드덕 아이스크림이나 디즈니 캐릭터 팝콘 통을 구입하면 6세, 10세 아이들의 텐션이 다시 수직 상승합니다."
-                        },
-                        rainy: {
-                            detail: "우천 시 야외 퍼레이드는 축소된 특별 버전(미니 레인 퍼레이드 카 몇 대만 주행)으로 교체되거나 취소될 수 있습니다. 퍼레이드 대신 실내 '잭 스패로우 선장의 블레이드 대결' 스턴트 쇼 극장으로 이동해 다이내믹한 연극을 감상합니다.",
-                            tips: "비가 오면 실내 숍(Grand Avenue Apparel) 등으로 인파가 많이 쏠리므로 이 시간에 아이들의 기념품 쇼핑을 한꺼번에 미리 해결해 주는 것도 똑똑한 방법입니다."
-                        }
-                    },
-                    {
-                        time: "18:00 - 21:30",
-                        title: "[야간 하일랜드] 보트 투어, 석식 및 매혹적인 불꽃 쇼",
-                        distance: "디즈니랜드 -> 호텔 (차량 약 40분)",
-                        stroller: "퇴장 인파가 한번에 수만 명 몰려 병목이 발생할 때 유모차를 밀면 발 뒤꿈치를 치거나 부딪히는 시비가 생기기 쉽습니다. 유모차 안전 주행을 위해 메인 보행선보다는 화단 옆 가장자리 경로를 따라 침착하게 이동하세요.",
-                        sunny: {
-                            detail: "해 질 무렵 불빛이 하나둘 들어오는 디즈니 캐슬 지하를 지나는 보트 투어 '크리스탈 그로토 여행(Voyage to the Crystal Grotto)'을 감상합니다. 그 후 8시 또는 8시반 경 캐슬 앞에서 펼쳐지는 감동의 3D 매핑 멀티미디어 불꽃 쇼 'ILLUMINATE!'를 관람합니다.",
-                            tips: "석식은 디즈니 파크 외부 게이트와 바로 연결된 '디즈니타운(Disneytown)'의 크리스탈 제이드나 블루프로그 등 쾌적한 레스토랑에서 먹는 것이 파크 내부 식당보다 훨씬 맛있고 여유롭습니다. 재입장 도장이 가능하므로 편하게 외출하세요."
-                        },
-                        rainy: {
-                            detail: "바람이 동반된 비가 오면 불꽃 쇼의 가시성이 떨어지고 야외 대기가 매우 고통스럽습니다. 이때는 무리해서 끝까지 보지 말고 19시경에 일찍 디즈니타운에서 따뜻하게 식사를 마치고 남들보다 1시간 먼저 DiDi 승차장으로 나와 차량을 호출하는 것이 2세 영아와 어르신들의 감기 예방 및 교통 지옥을 탈출하는 정답 루트입니다.",
-                            tips: "불꽃 쇼가 끝난 직후(9시 전후)에는 DiDi 대기 시간이 기본 1시간을 초과하며 매칭률이 극도로 떨어집니다. 귀가 전술을 꼭 미리 합의해 두세요."
-                        }
-                    }
-                ]
-            },
-            day2: {
-                title: "6/19 (금): 숙소 이동(라디슨 하일랜드) 및 신천지/임시정부 역사 투어",
-                events: [
-                    {
-                        time: "10:00 - 11:30",
-                        title: "난징동루 라디슨 컬렉션 하일랜드 호텔 체크인 및 짐 보관",
-                        distance: "호텔 이동 약 5~8km",
-                        stroller: "라디슨 호텔 로비 진입 시 지하철 연결 엘리베이터를 이용하시면 유모차를 밀고 바로 짐을 맡길 수 있습니다.",
-                        sunny: {
-                            detail: "남경동로의 노른자위 호텔인 '상해丽笙精选海伦宾馆'에 도착해 얼리 체크인(가능 시) 혹은 컨시어지에 7개의 수하물을 먼저 맡기고 편안하게 일정을 출발합니다.",
-                            tips: "라디슨 하일랜드 호텔은 난징동루역 14번 출구와 바로 닿아 있어 대가족 허브로 최고의 가치를 자랑합니다."
-                        },
-                        rainy: {
-                            detail: "비가 많이 오면 로비 바깥 인도 이동을 피하고 지하철 통로로 바로 이어지는 지하 연결 진입로를 통해 호텔 로비로 올라갑니다.",
-                            tips: "가방 및 겉옷에 묻은 빗물을 닦을 타올을 로비 데스크에 정중하게 요청해 사용하세요."
-                        }
-                    },
-                    {
-                        time: "11:30 - 13:00",
-                        title: "대한민국 임시정부 청사 관람",
-                        distance: "호텔 -> 마당로 청사 (지하철 10호선 직행 4정거장, 혹은 차량 15분)",
-                        stroller: "임시정부 유적지 내부는 통로와 계단이 극도로 좁아 유모차 반입이 원천 불가합니다. 입구 지정 구역에 자물쇠로 잠가 보관한 후 2세 아동은 아기띠나 직접 안아서 진입해야 합니다.",
-                        sunny: {
-                            detail: "우리 역사의 살아있는 한 페이지를 10세, 6세 아이들에게 눈으로 직접 보여줍니다. 실내 역사관이므로 정숙 유지가 필요합니다.",
-                            tips: "현재 임시정부 청사는 온라인 사전 예약 제도가 수시로 도입되거나 일일 입장 제한이 있으므로, 중국어 능통자분이 가시기 2~3일 전에 위챗 미니프로그램으로 반드시 예약을 확인하세요."
-                        },
-                        rainy: {
-                            detail: "대기줄이 길고 비가 오는 날이면 입구 지붕이 없는 좁은 야외 골목길에서 우산을 쓰고 대기해야 할 수 있어 체온 저하에 각별히 유의해야 합니다.",
-                            tips: "관람 시간이 약 40분으로 짧은 편이므로 아이들이 보채지 않도록 대기 중에 미리 미니 간식 등을 먹여두세요."
-                        }
-                    },
-                    {
-                        time: "13:00 - 16:00",
-                        title: "신천지(Xintiandi) 세련된 카페 거리 산책 및 점심",
-                        distance: "임시정부에서 바로 인접 (도보 3분)",
-                        stroller: "신천지 보행 도로는 유럽식 마차길 돌바닥(코블스톤)이 섞여 있어 바퀴가 다소 덜컹거릴 수 있으므로 유모차 속도를 낮추어 안전하게 미세요.",
-                        sunny: {
-                            detail: "아름다운 플라타너스 나무 아래 야외 테라스가 밀집한 상하이 최고의 트렌디 상권입니다. 딘타이펑이나 깨끗한 아시안 비스트로에서 대가족 점심 식사를 여유롭게 진행합니다.",
-                            tips: "식사 후 상해 임시정부 기념품과 커피 한 잔을 마시며 40대 어른들은 여유로운 상해 감성을 누릴 수 있습니다."
-                        },
-                        rainy: {
-                            detail: "우천 시 야외 야외 골목길 투어는 과감히 생략하고, 신천지 역과 밀접하게 연결된 대형 쇼핑몰 '신천지 스타일(Xintiandi Style)' 지하 푸드코트 및 고급 레스토랑가로 들어가 빗방울을 피합니다.",
-                            tips: "지하 몰 내부에 아이들이 좋아할 만한 캐릭터 팝업 스토어나 대형 완구점이 있어 지루해하지 않습니다."
-                        }
-                    },
-                    {
-                        time: "17:00 - 20:30",
-                        title: "난징동루 복귀, 저녁 식사 및 밤 보행자 거리 투어",
-                        distance: "신천지 -> 라디슨 하일랜드 (지하철 10호선 직행 혹은 차량 12분)",
-                        stroller: "난징동루 메인 보행 거리는 장애물이 없는 넓은 보행 전용 구역이므로 유모차 이동에 가장 편안한 천국입니다.",
-                        sunny: {
-                            detail: "호텔방에 잠깐 들어가 재정비와 2세 유아 낮잠을 가볍게 취한 뒤, 밤이 되면 난징동루 보행가의 화려한 네온사인 아래로 나와 단체 투어 미니열차(꼬마기차)를 편도로 탑승합니다.",
-                            tips: "저녁 식사로는 상하이 현지 만두 맛집(예: 제일식품상점 내 지점) 또는 유명 중식 브랜드 식당인 그랜드마더(Grandmother's House) 등에서 식사합니다."
-                        },
-                        rainy: {
-                            detail: "우천 시 야외 보행자 거리 걷기는 최소화하고, 호텔 바로 앞에 마주 보고 있는 신세계대마루(New World Daimaru) 백화점 실내로 피신해 세계 최대 수준의 곡선형 에스컬레이터를 타고 올라가며 실내 식당가 투어를 진행합니다.",
-                            tips: "백화점 내 유아 수유실과 화장실 상태가 매우 우수해 비 오는 날 쾌적한 피난처가 됩니다."
-                        }
-                    }
-                ]
-            },
-            day3: {
-                title: "6/20 (토): 푸동 초현대 마천루 정복 및 와이탄 황푸강 크루즈",
-                events: [
-                    {
-                        time: "10:00 - 13:00",
-                        title: "푸동 루자쭈이(Lujiazui) 마천루 및 세계 최대 디즈니 스토어",
-                        distance: "호텔 -> 루자쭈이 (지하철 2호선 1정거장, 3분 소요)",
-                        stroller: "루자쭈이 보행 육교 공중 데크는 곳곳에 지상 연결 대형 엘리베이터가 작동하고 있어 유모차 탑승 상태로 이동이 완벽하게 편리합니다.",
-                        sunny: {
-                            detail: "라디슨 호텔 바로 밑 난징동루 역에서 지하철 2호선을 타면 강 너머 루자쭈이 역까지 단 1정거장 만에 도착합니다. 동방명주 타워 바로 앞에 위치한 '디즈니 플래그십 스토어 상하이' 야외 대형 시계탑에서 사진 촬영을 진행하고 쇼핑을 만끽합니다.",
-                            tips: "상하이 타워(세계 2위 높이) 또는 동방명주 전망대 중 하나를 사전에 온라인 발권하여 고속 엘리베이터 체험을 즐기세요."
-                        },
-                        rainy: {
-                            detail: "비가 오면 높은 전망대는 구름에 가려 시야가 완벽히 차단됩니다. 전망대 진입을 과감히 취소하고, 루자쭈이 역과 맞물린 거대한 원형 몰 '정다광장(Super Brand Mall)'이나 'IFC 몰' 실내로 동선을 일원화합니다.",
-                            tips: "정다광장 내부에는 아이들이 좋아할 대형 오락 시설 및 키즈 놀이터가 입점해 있어 비를 피하기 최적입니다."
-                        }
-                    },
-                    {
-                        time: "14:30 - 17:30",
-                        title: "상하이 자연사박물관 실내 에듀 투어",
-                        distance: "루자쭈이 -> 자연사박물관 (지하철 2호선 환승 혹은 차량 15분)",
-                        stroller: "박물관 전체가 완벽한 유모차 슬로프 경사로 위주의 배리어 프리로 설계되어 이번 일정 중 유모차 휠링이 가장 완벽한 코스입니다.",
-                        sunny: {
-                            detail: "세계 최고 수준의 박물관으로 거대한 실물 크기의 고래 모형이 천장에 매달려 있고 실제 살아 움직이는 공룡 로봇이 전시되어 있어 10세, 6세, 2세 모든 자녀가 눈을 떼지 못합니다.",
-                            tips: "실내 온도가 에어컨 작동으로 매우 쾌적해 밖이 더울 때 최적의 더위 대피소가 됩니다."
-                        },
-                        rainy: {
-                            detail: "자연사박물관은 100% 실내 돔이므로 비가 쏟아지는 6월 상하이 장마에서 가장 최고의 안전 동선입니다. 비 오는 날 가족들의 투어 피로도를 획기적으로 줄여줍니다.",
-                            tips: "입구 물품 보관소에 젖은 무거운 휴대품과 젖은 우산을 보관함에 넣고 가벼운 몸으로 진입하세요."
-                        }
-                    },
-                    {
-                        time: "18:30 - 21:00",
-                        title: "와이탄(The Bund) 야경 산책 및 황푸강 유람선 탑승",
-                        distance: "호텔 근처 선착장 이동 (약 1.5km)",
-                        stroller: "유람선 승선구로 내려가는 계단에서는 안전을 위해 아동을 안아 올리고 유모차는 잠시 수동으로 들어서 내려가야 하므로 가벼운 휴대용 유모차가 빛을 발합니다.",
-                        sunny: {
-                            detail: "강바람을 시원하게 맞으며 화려한 조명이 빛나는 와이탄 유럽식 건물들과 푸동의 마천루를 강 가운데에서 최고의 뷰로 감상하는 하이라이트 시간입니다.",
-                            tips: "현장에서 크루즈 표를 구매하려면 매진 확률이 높고 줄이 길어지므로, 오후 시간대에 미리 위챗/알리페이를 통해 황푸강 유람선(黄浦江游览) 탑승권을 안전하게 실시간 온라인 대행 확보하시는 것이 스마트합니다."
-                        },
-                        rainy: {
-                            detail: "바람이 동반된 비가 불면 야외 갑판 출입이 금지될 수 있습니다. 대신 유람선의 1~2층 넓은 실내 통유리 창가 좌석을 선점하여 따뜻한 차를 마시며 운치 있는 빗속 와이탄을 감상하세요.",
-                            tips: "실내는 냉방이 가동되어 비에 젖은 채 진입하면 추울 수 있으므로 아이들에게 가벼운 바람막이 겉옷을 꼭 입혀 탑승시키세요."
-                        }
-                    }
-                ]
-            },
-            day4: {
-                title: "6/21 (일): 난징동루 체크아웃, 쇼핑 및 공항 출발 귀국",
-                events: [
-                    {
-                        time: "10:00 - 12:00",
-                        title: "난징동루 특산품 쇼핑 및 라디슨 하일랜드 호텔 체크아웃",
-                        distance: "도보 이동 반경 500m 이내",
-                        stroller: "마지막 체크아웃 후 모든 수하물 캐리어를 호텔 로비에 보관할 때 유모차 한 대는 손길이 닿기 쉽게 로비 밖 복도에 임시 파킹해 둡니다.",
-                        sunny: {
-                            detail: "멀리 갈 필요 없이 라디슨 호텔 바로 인근의 제일식품점 등에서 유명한 상하이 화이트래빗 우유사탕(大白兔), 고소한 전통 과자, 차 선물 세트를 기념품으로 정밀 사재기합니다.",
-                            tips: "체크아웃은 보통 12시 정각이므로, 11시 30분경 로비에 수하물을 깔끔하게 맡겨놓는 동선이 쾌적합니다."
-                        },
-                        rainy: {
-                            detail: "우천 시 야외 보행가 샵 투어 대신, 호텔과 지하로 통하는 난징동루 지하상가를 통해 우산 없이 가벼운 마음으로 실내 복합몰 쇼핑을 마칩니다.",
-                            tips: "기념품 쇼핑 비닐봉지가 비에 젖어 찢어지지 않도록 구매 시 대형 쇼핑용 비닐 백을 추가로 구입해 밀봉하세요."
-                        }
-                    },
-                    {
-                        time: "13:00 - 14:30",
-                        title: "마지막 패밀리 오찬 및 공항 이동 준비 완료",
-                        distance: "호텔 주변식 및 공항 이동 (차량 1시간 10분)",
-                        stroller: "이동을 위해 유모차를 완전히 접어 수하물 밴 트렁크 테트리스 적재 공간을 사전에 완벽히 마련합니다.",
-                        sunny: {
-                            detail: "난징동루 보행가 뒤편의 로컬 만두 전문점이나 평판이 높은 광둥식 딤섬 레스토랑에서 맵지 않고 담백한 메뉴로 아이들의 마지막 날 점심을 편안하게 먹입니다.",
-                            tips: "공항으로 가는 DiDi 차량을 출발 30분 전에 로비 앞으로 호출 예약하세요."
-                        },
-                        rainy: {
-                            detail: "상하이는 비가 오면 교통 정체가 매우 극심하여 공항 고가도로 진입에 평소 대비 30~40분 이상 더 걸립니다. 귀국 비행기 탑승을 놓치지 않기 위해 예정 동선보다 최소 40분 일찍 공항 밴 차량을 출발시키세요.",
-                            tips: "어린 자녀들이 공항 가는 차량 내부에서 지루해하지 않도록 간단한 휴대용 장난감이나 영상을 사전 오프라인 다운로드 형태로 받아 준비하세요."
-                        }
-                    },
-                    {
-                        time: "15:00 - 18:00",
-                        title: "공항 도착, 수하물 카운터 위탁 및 귀국편 탑승",
-                        distance: "공항 체크인 동선 이동",
-                        stroller: "탑승구 직전까지 아기를 안전하게 태운 후 '게이트 백(Gate Bag/탑승 직전 인도)'을 탑승 카운터 여직원에게 영어/중국어로 직접 사전 요청하세요.",
-                        sunny: {
-                            detail: "수속을 신속히 마치고 공항 내부 편의시설에서 남은 위안화를 음료수와 간식으로 털어내며 즐거운 마음으로 비행기를 기다립니다.",
-                            tips: "10세와 6세 자녀들에게 스스로 캐리어를 찾아 밀어보게 하는 등의 소소한 역할 부여로 가족 여행의 성취감을 고취시킵니다."
-                        },
-                        rainy: {
-                            detail: "비 오는 날은 공항 카운터도 혼잡하고 지연 출발(Delay) 빈도가 올라갑니다. 기내 온도가 다소 떨어질 수 있으니 보온용 가벼운 아기 담요나 긴팔 스웨터를 탑승용 휴대 가방에 하나 챙겨 비행기에 오르세요.",
-                            tips: "공항 검색대 진입 시 우산은 따로 가방에서 분리해서 스캔받아야 하니 미리 바깥 주머니에 꽂아두는 센스가 필요합니다."
-                        }
-                    }
-                ]
-            }
-        };
-
-        let chartInstance = null;
-
-        function updateTimeline() {
-            const dayData = timelineData[tripState.currentDay];
-            const container = document.getElementById('timeline-container');
-            const rainBadge = document.getElementById('rain-badge');
-            
-            if (tripState.rainyMode) {
-                rainBadge.classList.remove('hidden');
-            } else {
-                rainBadge.classList.add('hidden');
-            }
-
-            let html = '';
-            dayData.events.forEach((evt, idx) => {
-                const info = tripState.rainyMode ? evt.rainy : evt.sunny;
-                const isRainActive = tripState.rainyMode;
-                
-                html += `
-                    <div class="relative pl-8 before:absolute before:left-[11px] before:top-2 before:bottom-0 before:w-0.5 before:bg-slate-200 last:before:hidden animate-fade-in">
-                        <div class="absolute left-0 top-1 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${isRainActive ? 'bg-indigo-600 text-white' : 'bg-accent text-white'} shadow-md">
-                            ${idx + 1}
-                        </div>
-                        <div class="bg-white rounded-xl p-5 border ${isRainActive ? 'border-indigo-100 hover:border-indigo-300' : 'border-slate-200 hover:border-slate-300'} transition-all shadow-sm">
-                            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
-                                <span class="font-extrabold text-sm ${isRainActive ? 'text-indigo-600' : 'text-accent'} bg-slate-50 px-3 py-1 rounded-full"><i class="fa-regular fa-clock mr-1"></i>${evt.time}</span>
-                                <span class="text-xs text-slate-400 font-medium"><i class="fa-solid fa-route mr-1"></i>${evt.distance}</span>
-                            </div>
-                            <h3 class="font-extrabold text-lg text-slate-900 mb-3">${evt.title}</h3>
-                            <p class="text-sm text-slate-700 leading-relaxed mb-4">${info.detail}</p>
-                            
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-3 border-t border-slate-100">
-                                <div class="bg-slate-50 p-3 rounded-lg">
-                                    <span class="text-xs font-bold text-slate-500 block mb-1"><i class="fa-solid fa-circle-info text-blue-500 mr-1"></i>상세 꿀팁</span>
-                                    <p class="text-xs text-slate-600">${info.tips}</p>
-                                </div>
-                                <div class="bg-amber-50 p-3 rounded-lg ${tripState.strollerMode ? 'ring-2 ring-amber-400' : ''}">
-                                    <span class="text-xs font-bold text-amber-800 block mb-1"><i class="fa-solid fa-baby-carriage text-amber-600 mr-1"></i>유모차 및 유아 이동성</span>
-                                    <p class="text-xs text-amber-800">${evt.stroller}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-            container.innerHTML = html;
-
-            document.getElementById('current-day-title').innerText = dayData.title;
-        }
-
-        function changeDay(dayKey) {
-            tripState.currentDay = dayKey;
-            
-            document.querySelectorAll('[id^="btn-day"]').forEach(btn => {
-                btn.classList.remove('bg-primary', 'text-white', 'border-primary');
-                btn.classList.add('bg-white', 'text-slate-700', 'border-slate-200');
-            });
-            const activeBtn = document.getElementById(`btn-${dayKey}`);
-            if (activeBtn) {
-                activeBtn.classList.remove('bg-white', 'text-slate-700', 'border-slate-200');
-                activeBtn.classList.add('bg-primary', 'text-white', 'border-primary');
-            }
-
-            updateTimeline();
-            updateChartHighlight();
-            if (tripState.mapView === 'day') updateMap();
-        }
-
-        function toggleRainMode() {
-            tripState.rainyMode = !tripState.rainyMode;
-            const btn = document.getElementById('toggle-rain');
-            const icon = document.getElementById('rain-icon');
-            if (tripState.rainyMode) {
-                btn.classList.add('bg-indigo-600', 'text-white', 'border-indigo-600');
-                btn.classList.remove('bg-white', 'text-slate-600', 'border-slate-200');
-                icon.classList.remove('text-slate-400');
-                icon.classList.add('text-white');
-            } else {
-                btn.classList.remove('bg-indigo-600', 'text-white', 'border-indigo-600');
-                btn.classList.add('bg-white', 'text-slate-600', 'border-slate-200');
-                icon.classList.remove('text-white');
-                icon.classList.add('text-slate-400');
-            }
-            updateTimeline();
-        }
-
-        function toggleStrollerMode() {
-            tripState.strollerMode = !tripState.strollerMode;
-            const btn = document.getElementById('toggle-stroller');
-            const icon = document.getElementById('stroller-icon');
-            if (tripState.strollerMode) {
-                btn.classList.add('bg-amber-500', 'text-white', 'border-amber-500');
-                btn.classList.remove('bg-white', 'text-slate-600', 'border-slate-200');
-                icon.classList.remove('text-slate-400');
-                icon.classList.add('text-white');
-            } else {
-                btn.classList.remove('bg-amber-500', 'text-white', 'border-amber-500');
-                btn.classList.add('bg-white', 'text-slate-600', 'border-slate-200');
-                icon.classList.remove('text-white');
-                icon.classList.add('text-slate-400');
-            }
-            updateTimeline();
-        }
-
-        function initChart() {
-            const ctx = document.getElementById('analysisChart').getContext('2d');
-            chartInstance = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['6/17 (야간입국)', '6/18 (디즈니)', '6/19 (신천지/임정)', '6/20 (푸동/와이탄)', '6/21 (귀국)'],
-                    datasets: [
-                        {
-                            label: '예상 도보량 (km)',
-                            data: [1.2, 11.5, 5.5, 6.0, 2.5], // Expanded disney walking miles
-                            backgroundColor: '#2563eb',
-                            borderRadius: 4
-                        },
-                        {
-                            label: '예상 피로도 지수 (최대=100)',
-                            data: [35, 99, 75, 80, 40],
-                            backgroundColor: '#f97316',
-                            borderRadius: 4
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                font: {
-                                    family: 'system-ui'
-                                },
-                                boxWidth: 12
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: 100
-                        }
-                    }
-                }
-            });
-        }
-
-        function updateChartHighlight() {
-            if (!chartInstance) return;
-            const activeIdx = { day0: 0, day1: 1, day2: 2, day3: 3, day4: 4 }[tripState.currentDay];
-            
-            const defaultWalkColors = ['#2563eb', '#2563eb', '#2563eb', '#2563eb', '#2563eb'];
-            const defaultFatigueColors = ['#f97316', '#f97316', '#f97316', '#f97316', '#f97316'];
-            
-            defaultWalkColors[activeIdx] = '#1e3a8a';
-            defaultFatigueColors[activeIdx] = '#ea580c';
-            
-            chartInstance.data.datasets[0].backgroundColor = defaultWalkColors;
-            chartInstance.data.datasets[1].backgroundColor = defaultFatigueColors;
-            chartInstance.update();
-        }
-
         // === Weather Forecast ===
+        const WEATHER_HOURS = [0, 3, 6, 9, 12, 15, 18, 21];
         const WEATHER_DAYS = [
-            { date: '2026-06-17', label: '6/17 (수) 입국' },
-            { date: '2026-06-18', label: '6/18 (목) 디즈니랜드' },
-            { date: '2026-06-19', label: '6/19 (금) 신천지/임정' },
-            { date: '2026-06-20', label: '6/20 (토) 푸동/와이탄' },
-            { date: '2026-06-21', label: '6/21 (일) 쇼핑/귀국' }
+            { dayKey: 'day0', date: '2026-06-17', label: '6/17 (수) 입국' },
+            { dayKey: 'day1', date: '2026-06-18', label: '6/18 (목) 디즈니랜드' },
+            { dayKey: 'day2', date: '2026-06-19', label: '6/19 (금) 가족 합류/시내' },
+            { dayKey: 'day3', date: '2026-06-20', label: '6/20 (토) 푸동/와이탄' },
+            { dayKey: 'day4', date: '2026-06-21', label: '6/21 (일) 쇼핑/귀국' }
         ];
+        let weatherCache = null;
         const WEATHER_LOC = { lat: 31.2304, lng: 121.4737 };
 
         function weatherIcon(code, hour) {
@@ -1093,99 +430,98 @@
 
         async function initWeather() {
             const container = document.getElementById('weather-container');
-            container.innerHTML = '<div class="text-center py-8 text-slate-400 text-sm"><i class="fa-solid fa-spinner fa-spin mr-2"></i>기상 데이터 불러오는 중...</div>';
+            container.innerHTML = '<div class="text-center py-6 text-slate-400 text-sm"><i class="fa-solid fa-spinner fa-spin mr-2"></i>기상 데이터 불러오는 중...</div>';
             let result = await fetchForecast();
             if (!result) result = await fetchHistorical();
             if (!result) {
                 container.innerHTML = '<div class="bg-amber-50 border border-amber-200 text-amber-900 text-sm p-4 rounded-lg">기상 데이터를 불러올 수 없습니다. (네트워크 또는 API 일시 장애)</div>';
                 return;
             }
-            renderWeather(result);
+            weatherCache = result;
+            renderWeatherForDay(tripState.currentDay);
         }
 
-        function renderWeather({ kind, data, mapYear }) {
+        function renderWeatherForDay(dayKey) {
             const container = document.getElementById('weather-container');
-            const banner = kind === 'forecast'
-                ? '<div class="bg-blue-50 border border-blue-200 text-blue-800 text-xs p-3 rounded-lg mb-4 flex items-start gap-2"><i class="fa-solid fa-satellite-dish mt-0.5"></i><span><strong>실시간 예보</strong> · Open-Meteo · 출발 16일 이내 자동 활성화. 매시 갱신.</span></div>'
-                : `<div class="bg-amber-50 border border-amber-200 text-amber-900 text-xs p-3 rounded-lg mb-4 flex items-start gap-2"><i class="fa-solid fa-clock-rotate-left mt-0.5"></i><span><strong>참고용 (${mapYear}년 동일 일자 측정 데이터)</strong> · 현재 출발일이 예보 가용 범위(16일) 밖이라 작년 데이터로 표시 중. 6월 초부터 실제 예보로 자동 전환됩니다.</span></div>`;
+            if (!container) return;
+            if (!weatherCache) return;
+
+            const { kind, data, mapYear } = weatherCache;
+            const day = WEATHER_DAYS.find(d => d.dayKey === dayKey);
+            if (!day) { container.innerHTML = ''; return; }
 
             const hourly = data.hourly;
             const daily = data.daily;
             const hasPrecipProb = !!hourly.precipitation_probability;
 
-            let html = banner;
+            const targetDate = kind === 'historical' ? day.date.replace('2026', String(mapYear)) : day.date;
+            const di = daily.time.indexOf(targetDate);
+            const maxT = di >= 0 ? Math.round(daily.temperature_2m_max[di]) : null;
+            const minT = di >= 0 ? Math.round(daily.temperature_2m_min[di]) : null;
+            const dayCode = di >= 0 ? daily.weathercode[di] : 0;
+            const dayPrecip = di >= 0 ? (daily.precipitation_sum[di] || 0) : 0;
 
-            WEATHER_DAYS.forEach((day) => {
-                const targetDate = kind === 'historical' ? day.date.replace('2026', String(mapYear)) : day.date;
-                const di = daily.time.indexOf(targetDate);
-                const maxT = di >= 0 ? Math.round(daily.temperature_2m_max[di]) : null;
-                const minT = di >= 0 ? Math.round(daily.temperature_2m_min[di]) : null;
-                const dayCode = di >= 0 ? daily.weathercode[di] : 0;
-                const dayPrecip = di >= 0 ? (daily.precipitation_sum[di] || 0) : 0;
-
-                let hoursHtml = '';
-                hourly.time.forEach((t, i) => {
-                    if (!t.startsWith(targetDate)) return;
-                    const hr = parseInt(t.slice(11, 13), 10);
-                    const code = hourly.weathercode[i];
-                    const temp = Math.round(hourly.temperature_2m[i]);
-                    const wind = Math.round(hourly.wind_speed_10m[i]);
-                    let precipText, precipCls;
-                    if (hasPrecipProb) {
-                        const p = hourly.precipitation_probability[i];
-                        precipText = `${p}%`;
-                        precipCls = p >= 70 ? 'text-indigo-700 font-bold' : (p >= 40 ? 'text-indigo-500 font-semibold' : 'text-slate-400');
-                    } else {
-                        const mm = hourly.precipitation[i] || 0;
-                        precipText = mm > 0 ? `${mm.toFixed(1)}mm` : '–';
-                        precipCls = mm >= 1 ? 'text-indigo-700 font-bold' : (mm > 0 ? 'text-indigo-500 font-semibold' : 'text-slate-400');
-                    }
-                    const rainBg = (hasPrecipProb && hourly.precipitation_probability[i] >= 60) || (!hasPrecipProb && (hourly.precipitation[i] || 0) >= 1)
-                        ? 'bg-indigo-50 border-indigo-200'
-                        : 'bg-white border-slate-200';
-
-                    hoursHtml += `
-                        <div class="flex-shrink-0 w-14 ${rainBg} border rounded-lg p-2 text-center">
-                            <div class="text-[10px] text-slate-500 font-semibold">${String(hr).padStart(2,'0')}시</div>
-                            <div class="text-xl my-1 leading-none">${weatherIcon(code, hr)}</div>
-                            <div class="text-sm font-bold text-slate-900">${temp}°</div>
-                            <div class="text-[10px] ${precipCls} mt-0.5">${precipText}</div>
-                            <div class="text-[10px] text-slate-400 mt-0.5">${wind}km</div>
-                        </div>
-                    `;
-                });
-
-                html += `
-                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 mb-4">
-                        <div class="flex items-center justify-between gap-3 mb-3 flex-wrap">
-                            <div>
-                                <h3 class="font-extrabold text-lg text-slate-900">${day.label}</h3>
-                                <div class="text-xs text-slate-500 mt-0.5">${weatherIcon(dayCode, 12)} ${weatherLabel(dayCode)} · 일 강수량 ${dayPrecip.toFixed(1)}mm</div>
-                            </div>
-                            <div class="flex items-baseline gap-1">
-                                <span class="text-2xl font-black text-red-500">${maxT}°</span>
-                                <span class="text-slate-400">/</span>
-                                <span class="text-xl font-bold text-blue-500">${minT}°</span>
-                            </div>
-                        </div>
-                        <div class="overflow-x-auto custom-scroll">
-                            <div class="flex gap-2 min-w-max pb-2">${hoursHtml}</div>
-                        </div>
-                        <div class="flex gap-3 mt-3 text-[10px] text-slate-400 border-t pt-2">
-                            <span><strong class="text-slate-600">행</strong>: ${hasPrecipProb ? '강수확률' : '강수량'}</span>
-                            <span><strong class="text-slate-600">하단</strong>: 풍속 km/h</span>
-                        </div>
+            let cellsHtml = '';
+            WEATHER_HOURS.forEach(hr => {
+                const ts = `${targetDate}T${String(hr).padStart(2, '0')}:00`;
+                const idx = hourly.time.indexOf(ts);
+                if (idx < 0) return;
+                const code = hourly.weathercode[idx];
+                const temp = Math.round(hourly.temperature_2m[idx]);
+                let precipText, precipCls, isRainy;
+                if (hasPrecipProb) {
+                    const p = hourly.precipitation_probability[idx];
+                    precipText = `${p}%`;
+                    isRainy = p >= 60;
+                    precipCls = p >= 60 ? 'text-indigo-700 font-bold' : (p >= 30 ? 'text-indigo-500' : 'text-slate-400');
+                } else {
+                    const mm = hourly.precipitation[idx] || 0;
+                    precipText = mm > 0 ? `${mm.toFixed(1)}mm` : '–';
+                    isRainy = mm >= 1;
+                    precipCls = mm >= 1 ? 'text-indigo-700 font-bold' : (mm > 0 ? 'text-indigo-500' : 'text-slate-400');
+                }
+                const bg = isRainy ? 'bg-indigo-50 border-indigo-200' : 'bg-slate-50 border-slate-200';
+                cellsHtml += `
+                    <div class="${bg} border rounded-lg p-3 text-center">
+                        <div class="text-[11px] text-slate-500 font-semibold">${String(hr).padStart(2,'0')}시</div>
+                        <div class="text-2xl my-1 leading-none">${weatherIcon(code, hr)}</div>
+                        <div class="text-base font-bold text-slate-900">${temp}°</div>
+                        <div class="text-[11px] ${precipCls}">${precipText}</div>
                     </div>
                 `;
             });
 
-            container.innerHTML = html;
+            const banner = kind === 'forecast'
+                ? '<span class="inline-flex items-center gap-1 text-[11px] text-blue-700 bg-blue-50 px-2 py-1 rounded-full"><i class="fa-solid fa-satellite-dish"></i> 실시간 예보</span>'
+                : `<span class="inline-flex items-center gap-1 text-[11px] text-amber-800 bg-amber-50 px-2 py-1 rounded-full"><i class="fa-solid fa-clock-rotate-left"></i> ${mapYear}년 동일 일자 (참고)</span>`;
+
+            container.innerHTML = `
+                <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+                    <div class="flex items-center justify-between gap-3 mb-4 flex-wrap">
+                        <div class="flex items-center gap-3">
+                            <span class="text-4xl leading-none">${weatherIcon(dayCode, 12)}</span>
+                            <div>
+                                <h3 class="font-extrabold text-slate-900">${day.label}</h3>
+                                <div class="text-xs text-slate-500 mt-0.5">${weatherLabel(dayCode)} · 일 강수량 ${dayPrecip.toFixed(1)}mm</div>
+                            </div>
+                        </div>
+                        <div class="flex items-baseline gap-3">
+                            <div class="flex items-baseline gap-1">
+                                <span class="text-2xl font-black text-red-500">${maxT}°</span>
+                                <span class="text-slate-400 text-sm">/</span>
+                                <span class="text-lg font-bold text-blue-500">${minT}°</span>
+                            </div>
+                            ${banner}
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-4 sm:grid-cols-8 gap-2">${cellsHtml}</div>
+                </div>
+            `;
         }
 
         window.onload = function() {
             initChart();
             initMap();
-            initDisneyMap();
             initWeather();
             changeDay('day1');
         };
