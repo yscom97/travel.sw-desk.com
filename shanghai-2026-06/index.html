@@ -7,6 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script>
         tailwind.config = {
             theme: {
@@ -111,6 +113,30 @@
             </div>
         </div>
 
+        <!-- Map Section -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 mb-8">
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-900"><i class="fa-solid fa-map-location-dot text-accent mr-2"></i>일정 지도</h2>
+                    <p class="text-slate-500 text-sm mt-1">상단의 일자 버튼과 연동됩니다. 마커를 클릭하면 위치 상세가 표시됩니다.</p>
+                </div>
+                <div class="flex gap-1 bg-slate-100 p-1 rounded-xl">
+                    <button id="map-view-all" onclick="setMapView('all')" class="px-3 py-2 rounded-lg text-xs font-bold transition bg-primary text-white">전체 보기</button>
+                    <button id="map-view-day" onclick="setMapView('day')" class="px-3 py-2 rounded-lg text-xs font-bold transition bg-transparent text-slate-600 hover:bg-white">선택한 일자만</button>
+                </div>
+            </div>
+
+            <div id="map" class="rounded-xl border border-slate-200 z-0" style="height: 480px;"></div>
+
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-2 mt-4 text-xs">
+                <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full inline-block" style="background:#dc2626"></span><span class="text-slate-700">6/17 입국</span></div>
+                <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full inline-block" style="background:#ec4899"></span><span class="text-slate-700">6/18 디즈니랜드</span></div>
+                <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full inline-block" style="background:#2563eb"></span><span class="text-slate-700">6/19 신천지/임정</span></div>
+                <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full inline-block" style="background:#9333ea"></span><span class="text-slate-700">6/20 푸동/와이탄</span></div>
+                <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full inline-block" style="background:#16a34a"></span><span class="text-slate-700">6/21 쇼핑/귀국</span></div>
+            </div>
+        </div>
+
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
             
             <div class="lg:col-span-2 space-y-6">
@@ -179,8 +205,128 @@
         const tripState = {
             currentDay: 'day0',
             rainyMode: false,
-            strollerMode: false
+            strollerMode: false,
+            mapView: 'all'
         };
+
+        const locationData = {
+            day0: {
+                color: '#dc2626',
+                label: '6/17 (수) 입국',
+                points: [
+                    { name: '푸동국제공항 (PVG)', lat: 31.1443, lng: 121.8083, note: '23:00 전후 도착 · 대형 DiDi 호출' },
+                    { name: '첫 숙소 (디즈니랜드 인근)', lat: 31.1450, lng: 121.6650, note: '체크인 후 숙면 (내일 오픈런 대비)' }
+                ]
+            },
+            day1: {
+                color: '#ec4899',
+                label: '6/18 (목) 디즈니랜드',
+                points: [
+                    { name: '상하이 디즈니랜드 (메인 게이트)', lat: 31.1518, lng: 121.6589, note: '07:00 출발 · 오픈런 입장' },
+                    { name: '바보사 바베큐 (트레저 코브)', lat: 31.1504, lng: 121.6620, note: '12:00 가족 합체 점심' },
+                    { name: '디즈니타운 (저녁식사)', lat: 31.1438, lng: 121.6635, note: '게이트 밖 식사 / 재입장' }
+                ]
+            },
+            day2: {
+                color: '#2563eb',
+                label: '6/19 (금) 신천지/임시정부',
+                points: [
+                    { name: '라디슨 컬렉션 하일랜드 (메인 호텔)', lat: 31.2381, lng: 121.4814, note: '11시경 짐 위탁 후 출발' },
+                    { name: '대한민국 임시정부 청사', lat: 31.2238, lng: 121.4744, note: '11:30 역사 투어 (유모차 불가)' },
+                    { name: '신천지', lat: 31.2218, lng: 121.4753, note: '13:00 점심 / 노천 거리 산책' },
+                    { name: '난징동루 보행자거리', lat: 31.2364, lng: 121.4818, note: '18:30 미니 기차 / 야간 산책' },
+                    { name: '신세계 다마루 백화점', lat: 31.2358, lng: 121.4794, note: '나선형 에스컬레이터 / 우천 대안' }
+                ]
+            },
+            day3: {
+                color: '#9333ea',
+                label: '6/20 (토) 푸동/와이탄',
+                points: [
+                    { name: '동방명주', lat: 31.2397, lng: 121.4995, note: '10:00 마천루 전망대 (우천시 스킵)' },
+                    { name: '상하이 디즈니 플래그십', lat: 31.2393, lng: 121.4972, note: '시계탑 광장 인형 쇼' },
+                    { name: '정다광장 (Super Brand Mall)', lat: 31.2384, lng: 121.4985, note: '우천 대안 / 점심' },
+                    { name: '상하이 자연사 박물관', lat: 31.2407, lng: 121.4576, note: '14:30 실내 투어 (배리어프리 완비)' },
+                    { name: '와이탄 황푸강 크루즈', lat: 31.2401, lng: 121.4884, note: '18:30 야경 50분 유람선' }
+                ]
+            },
+            day4: {
+                color: '#16a34a',
+                label: '6/21 (일) 쇼핑/귀국',
+                points: [
+                    { name: '난징동루 쇼핑 (제일식품상점)', lat: 31.2378, lng: 121.4815, note: '10:00 특산품 / 화이트래빗 사재기' },
+                    { name: '스타벅스 리저브 로스터리', lat: 31.2253, lng: 121.4515, note: '12:00 마지막 오찬 / 베이커리' },
+                    { name: '푸동국제공항 (PVG)', lat: 31.1443, lng: 121.8083, note: '14:30 출발 (장마철 +40분 마진)' }
+                ]
+            }
+        };
+
+        let leafletMap = null;
+        let mapLayers = [];
+
+        function initMap() {
+            leafletMap = L.map('map', { scrollWheelZoom: false, zoomControl: true }).setView([31.20, 121.55], 10);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                maxZoom: 18
+            }).addTo(leafletMap);
+            leafletMap.on('click', () => leafletMap.scrollWheelZoom.enable());
+            updateMap();
+        }
+
+        function clearMapLayers() {
+            mapLayers.forEach(l => leafletMap.removeLayer(l));
+            mapLayers = [];
+        }
+
+        function renderDayOnMap(dayKey, drawRoute) {
+            const d = locationData[dayKey];
+            if (!d) return [];
+            const latlngs = [];
+            d.points.forEach((p, i) => {
+                const icon = L.divIcon({
+                    className: 'custom-pin',
+                    html: `<div style="background:${d.color};color:white;width:28px;height:28px;border-radius:50%;border:2px solid white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;box-shadow:0 2px 6px rgba(0,0,0,.35);">${i+1}</div>`,
+                    iconSize: [28, 28],
+                    iconAnchor: [14, 14]
+                });
+                const m = L.marker([p.lat, p.lng], { icon }).addTo(leafletMap);
+                m.bindPopup(`<div style="font-family:system-ui,sans-serif;min-width:180px;"><div style="font-size:10px;color:${d.color};font-weight:700;text-transform:uppercase;letter-spacing:.05em;">${d.label}</div><div style="font-weight:700;margin:4px 0;color:#0f172a;font-size:14px;">${p.name}</div><div style="font-size:12px;color:#475569;line-height:1.4;">${p.note}</div></div>`);
+                mapLayers.push(m);
+                latlngs.push([p.lat, p.lng]);
+            });
+            if (drawRoute && latlngs.length > 1) {
+                const line = L.polyline(latlngs, { color: d.color, weight: 3, opacity: 0.55, dashArray: '6 8' }).addTo(leafletMap);
+                mapLayers.push(line);
+            }
+            return latlngs;
+        }
+
+        function updateMap() {
+            if (!leafletMap) return;
+            clearMapLayers();
+            if (tripState.mapView === 'all') {
+                const all = [];
+                ['day0', 'day1', 'day2', 'day3', 'day4'].forEach(k => {
+                    const ll = renderDayOnMap(k, false);
+                    all.push(...ll);
+                });
+                if (all.length) leafletMap.fitBounds(all, { padding: [40, 40] });
+            } else {
+                const ll = renderDayOnMap(tripState.currentDay, true);
+                if (ll.length === 1) leafletMap.setView(ll[0], 14);
+                else if (ll.length > 1) leafletMap.fitBounds(ll, { padding: [60, 60] });
+            }
+        }
+
+        function setMapView(view) {
+            tripState.mapView = view;
+            const btnAll = document.getElementById('map-view-all');
+            const btnDay = document.getElementById('map-view-day');
+            const baseAll = 'px-3 py-2 rounded-lg text-xs font-bold transition';
+            btnAll.className = `${baseAll} ${view === 'all' ? 'bg-primary text-white' : 'bg-transparent text-slate-600 hover:bg-white'}`;
+            btnDay.className = `${baseAll} ${view === 'day' ? 'bg-primary text-white' : 'bg-transparent text-slate-600 hover:bg-white'}`;
+            updateMap();
+        }
 
         const timelineData = {
             day0: {
@@ -513,6 +659,7 @@
 
             updateTimeline();
             updateChartHighlight();
+            if (tripState.mapView === 'day') updateMap();
         }
 
         function toggleRainMode() {
@@ -613,7 +760,8 @@
 
         window.onload = function() {
             initChart();
-            changeDay('day1'); // Defaulting to the newly super-detailed Disney Day for prompt evaluation
+            initMap();
+            changeDay('day1');
         };
     </script>
 </body>
