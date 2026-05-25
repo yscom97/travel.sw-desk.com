@@ -192,6 +192,15 @@
 
         </div>
 
+        <!-- Weather Forecast Section -->
+        <section class="mt-12">
+            <div class="flex items-center gap-3 mb-2">
+                <h2 class="text-2xl font-black text-slate-900"><i class="fa-solid fa-cloud-sun-rain text-accent mr-2"></i>일자별 시간대 기상 예보</h2>
+            </div>
+            <p class="text-slate-500 text-sm mb-6">상하이 시내 좌표 기준. 시간대별 기온·강수 확률·풍속 · <a href="https://open-meteo.com/" target="_blank" rel="noopener" class="text-blue-600 hover:underline">Open-Meteo</a> 데이터.</p>
+            <div id="weather-container"></div>
+        </section>
+
         <!-- Disney Detailed Park Map Section -->
         <section class="mt-12">
             <div class="flex items-center gap-3 mb-2">
@@ -1011,10 +1020,173 @@
             chartInstance.update();
         }
 
+        // === Weather Forecast ===
+        const WEATHER_DAYS = [
+            { date: '2026-06-17', label: '6/17 (수) 입국' },
+            { date: '2026-06-18', label: '6/18 (목) 디즈니랜드' },
+            { date: '2026-06-19', label: '6/19 (금) 신천지/임정' },
+            { date: '2026-06-20', label: '6/20 (토) 푸동/와이탄' },
+            { date: '2026-06-21', label: '6/21 (일) 쇼핑/귀국' }
+        ];
+        const WEATHER_LOC = { lat: 31.2304, lng: 121.4737 };
+
+        function weatherIcon(code, hour) {
+            const isNight = hour < 6 || hour >= 19;
+            if (code === 0) return isNight ? '🌙' : '☀️';
+            if (code === 1) return isNight ? '🌙' : '🌤️';
+            if (code === 2) return '⛅';
+            if (code === 3) return '☁️';
+            if (code === 45 || code === 48) return '🌫️';
+            if (code >= 51 && code <= 57) return '🌦️';
+            if (code >= 61 && code <= 67) return '🌧️';
+            if (code >= 71 && code <= 77) return '❄️';
+            if (code >= 80 && code <= 82) return '🌦️';
+            if (code >= 95) return '⛈️';
+            return '☁️';
+        }
+
+        function weatherLabel(code) {
+            if (code === 0) return '맑음';
+            if (code === 1) return '대체로 맑음';
+            if (code === 2) return '부분 흐림';
+            if (code === 3) return '흐림';
+            if (code === 45 || code === 48) return '안개';
+            if (code >= 51 && code <= 57) return '이슬비';
+            if (code >= 61 && code <= 67) return '비';
+            if (code >= 71 && code <= 77) return '눈';
+            if (code >= 80 && code <= 82) return '소나기';
+            if (code >= 95) return '뇌우';
+            return '구름';
+        }
+
+        async function fetchForecast() {
+            const start = WEATHER_DAYS[0].date;
+            const end = WEATHER_DAYS[WEATHER_DAYS.length - 1].date;
+            const u = `https://api.open-meteo.com/v1/forecast?latitude=${WEATHER_LOC.lat}&longitude=${WEATHER_LOC.lng}&hourly=temperature_2m,precipitation_probability,weathercode,relativehumidity_2m,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,weathercode&timezone=Asia%2FShanghai&start_date=${start}&end_date=${end}`;
+            try {
+                const r = await fetch(u);
+                if (!r.ok) return null;
+                const data = await r.json();
+                if (!data.hourly || !data.hourly.time || data.hourly.time.length === 0) return null;
+                return { kind: 'forecast', data, mapYear: 2026 };
+            } catch (e) {
+                console.warn('forecast api failed', e);
+                return null;
+            }
+        }
+
+        async function fetchHistorical() {
+            const start = WEATHER_DAYS[0].date.replace(/^2026/, '2025');
+            const end = WEATHER_DAYS[WEATHER_DAYS.length - 1].date.replace(/^2026/, '2025');
+            const u = `https://archive-api.open-meteo.com/v1/archive?latitude=${WEATHER_LOC.lat}&longitude=${WEATHER_LOC.lng}&hourly=temperature_2m,precipitation,weathercode,relativehumidity_2m,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,weathercode&timezone=Asia%2FShanghai&start_date=${start}&end_date=${end}`;
+            try {
+                const r = await fetch(u);
+                if (!r.ok) return null;
+                const data = await r.json();
+                if (!data.hourly || !data.hourly.time || data.hourly.time.length === 0) return null;
+                return { kind: 'historical', data, mapYear: 2025 };
+            } catch (e) {
+                console.warn('archive api failed', e);
+                return null;
+            }
+        }
+
+        async function initWeather() {
+            const container = document.getElementById('weather-container');
+            container.innerHTML = '<div class="text-center py-8 text-slate-400 text-sm"><i class="fa-solid fa-spinner fa-spin mr-2"></i>기상 데이터 불러오는 중...</div>';
+            let result = await fetchForecast();
+            if (!result) result = await fetchHistorical();
+            if (!result) {
+                container.innerHTML = '<div class="bg-amber-50 border border-amber-200 text-amber-900 text-sm p-4 rounded-lg">기상 데이터를 불러올 수 없습니다. (네트워크 또는 API 일시 장애)</div>';
+                return;
+            }
+            renderWeather(result);
+        }
+
+        function renderWeather({ kind, data, mapYear }) {
+            const container = document.getElementById('weather-container');
+            const banner = kind === 'forecast'
+                ? '<div class="bg-blue-50 border border-blue-200 text-blue-800 text-xs p-3 rounded-lg mb-4 flex items-start gap-2"><i class="fa-solid fa-satellite-dish mt-0.5"></i><span><strong>실시간 예보</strong> · Open-Meteo · 출발 16일 이내 자동 활성화. 매시 갱신.</span></div>'
+                : `<div class="bg-amber-50 border border-amber-200 text-amber-900 text-xs p-3 rounded-lg mb-4 flex items-start gap-2"><i class="fa-solid fa-clock-rotate-left mt-0.5"></i><span><strong>참고용 (${mapYear}년 동일 일자 측정 데이터)</strong> · 현재 출발일이 예보 가용 범위(16일) 밖이라 작년 데이터로 표시 중. 6월 초부터 실제 예보로 자동 전환됩니다.</span></div>`;
+
+            const hourly = data.hourly;
+            const daily = data.daily;
+            const hasPrecipProb = !!hourly.precipitation_probability;
+
+            let html = banner;
+
+            WEATHER_DAYS.forEach((day) => {
+                const targetDate = kind === 'historical' ? day.date.replace('2026', String(mapYear)) : day.date;
+                const di = daily.time.indexOf(targetDate);
+                const maxT = di >= 0 ? Math.round(daily.temperature_2m_max[di]) : null;
+                const minT = di >= 0 ? Math.round(daily.temperature_2m_min[di]) : null;
+                const dayCode = di >= 0 ? daily.weathercode[di] : 0;
+                const dayPrecip = di >= 0 ? (daily.precipitation_sum[di] || 0) : 0;
+
+                let hoursHtml = '';
+                hourly.time.forEach((t, i) => {
+                    if (!t.startsWith(targetDate)) return;
+                    const hr = parseInt(t.slice(11, 13), 10);
+                    const code = hourly.weathercode[i];
+                    const temp = Math.round(hourly.temperature_2m[i]);
+                    const wind = Math.round(hourly.wind_speed_10m[i]);
+                    let precipText, precipCls;
+                    if (hasPrecipProb) {
+                        const p = hourly.precipitation_probability[i];
+                        precipText = `${p}%`;
+                        precipCls = p >= 70 ? 'text-indigo-700 font-bold' : (p >= 40 ? 'text-indigo-500 font-semibold' : 'text-slate-400');
+                    } else {
+                        const mm = hourly.precipitation[i] || 0;
+                        precipText = mm > 0 ? `${mm.toFixed(1)}mm` : '–';
+                        precipCls = mm >= 1 ? 'text-indigo-700 font-bold' : (mm > 0 ? 'text-indigo-500 font-semibold' : 'text-slate-400');
+                    }
+                    const rainBg = (hasPrecipProb && hourly.precipitation_probability[i] >= 60) || (!hasPrecipProb && (hourly.precipitation[i] || 0) >= 1)
+                        ? 'bg-indigo-50 border-indigo-200'
+                        : 'bg-white border-slate-200';
+
+                    hoursHtml += `
+                        <div class="flex-shrink-0 w-14 ${rainBg} border rounded-lg p-2 text-center">
+                            <div class="text-[10px] text-slate-500 font-semibold">${String(hr).padStart(2,'0')}시</div>
+                            <div class="text-xl my-1 leading-none">${weatherIcon(code, hr)}</div>
+                            <div class="text-sm font-bold text-slate-900">${temp}°</div>
+                            <div class="text-[10px] ${precipCls} mt-0.5">${precipText}</div>
+                            <div class="text-[10px] text-slate-400 mt-0.5">${wind}km</div>
+                        </div>
+                    `;
+                });
+
+                html += `
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 mb-4">
+                        <div class="flex items-center justify-between gap-3 mb-3 flex-wrap">
+                            <div>
+                                <h3 class="font-extrabold text-lg text-slate-900">${day.label}</h3>
+                                <div class="text-xs text-slate-500 mt-0.5">${weatherIcon(dayCode, 12)} ${weatherLabel(dayCode)} · 일 강수량 ${dayPrecip.toFixed(1)}mm</div>
+                            </div>
+                            <div class="flex items-baseline gap-1">
+                                <span class="text-2xl font-black text-red-500">${maxT}°</span>
+                                <span class="text-slate-400">/</span>
+                                <span class="text-xl font-bold text-blue-500">${minT}°</span>
+                            </div>
+                        </div>
+                        <div class="overflow-x-auto custom-scroll">
+                            <div class="flex gap-2 min-w-max pb-2">${hoursHtml}</div>
+                        </div>
+                        <div class="flex gap-3 mt-3 text-[10px] text-slate-400 border-t pt-2">
+                            <span><strong class="text-slate-600">행</strong>: ${hasPrecipProb ? '강수확률' : '강수량'}</span>
+                            <span><strong class="text-slate-600">하단</strong>: 풍속 km/h</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
         window.onload = function() {
             initChart();
             initMap();
             initDisneyMap();
+            initWeather();
             changeDay('day1');
         };
     </script>
